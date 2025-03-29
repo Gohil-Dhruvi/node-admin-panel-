@@ -1,2 +1,2 @@
-<!-- gmail : "john@123.in" ,
-password : 12345 -->
+gmail : "john@123.in" ,
+password : 12345
