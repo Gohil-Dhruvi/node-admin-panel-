@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+    <link rel="stylesheet" href="/dist/css/style.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            background: #121212;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+        .profile-container {
+            width: 450px;
+            background: #1e1e1e;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            font-weight: bold;
+            color: #fff;
+            margin: 0 auto 20px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+        }
+        .btn-custom {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 15px 10px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+        .btn-dashboard {
+            background: #007bff;
+            color: white;
+            box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.4);
+        }
+        .btn-logout {
+            background: #dc3545;
+            color: white;
+            box-shadow: 0px 4px 8px rgba(220, 53, 69, 0.4);
+        }
+        .btn-custom:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-avatar">
+            <i class="fas fa-user"></i>
+        </div>
+        <h2>Admin Profile</h2>
+        <h3>Welcome, <%= admin.name %></h3>
+        <p>Email: <%= admin.email %></p>
+        <p>Role: <%= admin.role || 'Admin' %></p>
+        <a class="btn-custom btn-dashboard" href="/dashboard">Back to Dashboard</a>
+        <a class="btn-custom btn-logout" href="/logout">Logout</a>
+    </div>
+
+    <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

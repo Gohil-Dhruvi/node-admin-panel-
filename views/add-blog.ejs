@@ -1,0 +1,86 @@
+<%- include('blog/header') %>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        max-width: 900px;
+    }
+
+    .card {
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .btn {
+        border-radius: 20px;
+    }
+
+    form {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container">
+    <h2 class="text-center my-4">Add New Blog</h2>
+    <form action="/blogs/add-blog" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" name="title" placeholder="Enter blog title" required>
+        </div>
+
+        <div class="form-group">
+            <label>Content</label>
+            <textarea class="form-control" name="content" rows="5" placeholder="Write your blog content here..." required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Author</label>
+            <input type="text" class="form-control" name="author" placeholder="Enter author's name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+            <select class="form-control" name="category" required>
+                <option value="Technology">Technology</option>
+                <option value="Health">Health</option>
+                <option value="Education">Education</option>
+                <option value="Travel">Travel</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="form-group row">
+            <label class="ml-3 text-right control-label col-form-label">File Upload</label>
+            <div class="col-md-9">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="blogImage" id="validatedCustomFile" required>
+                    <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                    <div class="invalid-feedback">Example invalid custom file feedback</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Tags (Comma Separated)</label>
+            <input type="text" class="form-control" name="tags" placeholder="e.g., JavaScript, Web Development, Node.js">
+        </div>
+
+        <div class="border-top">
+            <div class="card-body">
+                <a href="/blogs/view-blogs"><input type="submit" value="Add Blog" class="btn btn-primary"></a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<%- include('blog/footer') %>

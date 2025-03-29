@@ -1,0 +1,48 @@
+<%- include('blog/header') %>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Edit Blog</h2>
+    <form action="/blogs/update-blog/<%= blog._id %>" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="<%= blog.title %>" required>
+        </div>
+    
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" id="content" name="content" rows="6" required><%= blog.content %></textarea>
+        </div>
+    
+        <div class="form-group">
+            <label>Author</label>
+            <input type="text" class="form-control" name="author" placeholder="Enter author's name" required value="<%= blog.author %>">
+        </div>
+    
+        <div class="form-group">
+            <label>Category</label>
+            <select class="form-control" name="category" required>
+                <option value="Technology" <% if(blog.category == 'Technology') { %> selected <% } %> >Technology</option>
+                <option value="Health" <% if(blog.category == 'Health') { %> selected <% } %> >Health</option>
+                <option value="Education" <% if(blog.category == 'Education') { %> selected <% } %> >Education</option>
+                <option value="Travel" <% if(blog.category == 'Travel') { %> selected <% } %> >Travel</option>
+                <option value="Other" <% if(blog.category == 'Other') { %> selected <% } %> >Other</option>
+            </select>
+        </div>
+    
+        <div class="form-group">
+            <label>Tags (Comma Separated)</label>
+            <input type="text" class="form-control" name="tags" placeholder="e.g., JavaScript, Web Development, Node.js" value="<%= blog.tags ? blog.tags.join(', ') : '' %>">
+        </div>
+    
+        <div class="form-group">
+            <label>Upload Image</label>
+            <input type="file" class="form-control-file" name="blogImage">
+        </div>
+    
+        <a href="/blogs/view-blogs"><input type="submit" value="Update Blog" class="btn btn-primary"></a>
+        <a href="/blogs/view-blogs" class="btn btn-secondary">Cancel</a>
+    </form>
+    
+</div>
+
+<%- include('blog/footer') %>
