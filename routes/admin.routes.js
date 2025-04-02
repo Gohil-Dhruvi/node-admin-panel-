@@ -15,6 +15,6 @@ adminRoutes.get("/view-admins", viewAllAdminPage);
 adminRoutes.post("/add-admin", Admin.uploadImage, addNewAdmin);
 adminRoutes.get("/edit-admin/:id", editAdminPage);
 adminRoutes.post("/update-admin/:id", Admin.uploadImage, updateAdmin);
-adminRoutes.get("/delete-admin/:id", deleteAdmin);  
+adminRoutes.get("/delete-admin/:id", deleteAdmin);
 
-module.exports = adminRoutes;
+module.exports = adminRoutes; 

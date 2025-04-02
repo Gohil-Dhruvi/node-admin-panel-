@@ -1,5 +1,4 @@
-<%- include('blog/header') %>
-
+<%- include('header') %>
 <style>
     body {
         font-family: 'Poppins', sans-serif;
@@ -74,8 +73,8 @@
             <p><strong>Tags:</strong> <%= blog.tags.join(", ") %></p>
         <% } %>
 
-        <a href="/" class="back-btn"> Back to Blogs</a>
+        <a href="/blogs/view-blogs" class="back-btn"> Back to Blogs</a>
     </div>
 </div>
 
-<%- include('blog/footer') %>
+<%- include('footer') %>

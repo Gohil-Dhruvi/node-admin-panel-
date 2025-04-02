@@ -3,29 +3,16 @@ const path = require("path");
 const fs = require("fs");
 
 exports.addAdminPage = async (req, res) => {
-  try {
-    if (!req.cookies || !req.cookies.admin || !req.cookies.admin._id) {
-    }
-    let author = `${req.cookies.admin.firstname} ${req.cookies.admin.lastname}`;
-    let admin = await Admin.create({ ...req.body, author: author });
-    return res.redirect("/");
-  } catch (error) {
-    let admin = await Admin.findById(req.cookies.admin._id)
-    return res.render("add_admin", {admin})
-  }
+  return res.render("add_admin");
 };
 
 exports.viewAllAdminPage = async (req, res) => {
-  if (
-    req.cookies == null ||
-    req.cookies.admin == undefined ||
-    req.cookies.admin._id == undefined
-  ) {
-    return res.redirect("/");
-  } else {
-    let loginAdmin = await Admin.findById(req.cookies.admin._id)
+  try {
     let admins = await Admin.find();
-    return res.render("view_all_admin", { admins, admin: loginAdmin });
+    return res.render("view_all_admin", { admins });
+  } catch (error) {
+    console.log(error);
+    return res.redirect("back");
   }
 };
 
@@ -36,10 +23,12 @@ exports.addNewAdmin = async (req, res) => {
       imagePath = `/uploads/${req.file.filename}`;
       req.body.image = imagePath;
     }
-    let admin = await Admin.create({...req.body});
-    return res.redirect("back");
+
+    await Admin.create(req.body);
+    return res.redirect("/admin/view-admins"); 
   } catch (error) {
     console.log(error);
+    return res.redirect("back");
   }
 };
 
@@ -49,8 +38,10 @@ exports.editAdminPage = async (req, res) => {
     if (admin) {
       return res.render("edit_admin", { admin });
     }
+    return res.redirect("/admin/view-admins"); 
   } catch (error) {
     console.log(error);
+    return res.redirect("back");
   }
 };
 
@@ -60,12 +51,14 @@ exports.updateAdmin = async (req, res) => {
     if (admin) {
       if (req.file) {
         let imagePath = "";
-        if (admin.image !== "") {
-          imagePath = path.join(__dirname, "..", admin.image);
-          try {
-            await fs.unlinkSync(imagePath);
-          } catch (error) {
-            console.log("Image Not Found...");
+        if (admin.image) {
+          imagePath = path.join(__dirname, "..", "public", admin.image);
+          if (fs.existsSync(imagePath)) {
+            try {
+              fs.unlinkSync(imagePath); 
+            } catch (error) {
+              console.log("Error deleting old image:", error);
+            }
           }
         }
         imagePath = `/uploads/${req.file.filename}`;
@@ -77,28 +70,28 @@ exports.updateAdmin = async (req, res) => {
       });
       if (updateAdmin) {
         return res.redirect("/admin/view-admins");
-      } else {
-        return res.redirect("back");
       }
-    } else {
-      return res.redirect("back");
     }
+    return res.redirect("back");
   } catch (error) {
     console.log(error);
+    return res.redirect("back");
   }
 };
 
 exports.deleteAdmin = async (req, res) => {
   try {
     let admin = await Admin.findById(req.params.id);
-    if (!admin) return res.redirect("back");
+    if (!admin) return res.redirect("/admin/view-admins");
 
     if (admin.image) {
-      let imagePath = path.join(__dirname, "..","public",  admin.image);
-      try {
-        fs.unlinkSync(imagePath);
-      } catch (error) {
-        console.log("Image Not Found...");
+      let imagePath = path.join(__dirname, "..", "public", admin.image);
+      if (fs.existsSync(imagePath)) {
+        try {
+          fs.unlinkSync(imagePath); 
+        } catch (error) {
+          console.log("Error deleting image:", error);
+        }
       }
     }
 
