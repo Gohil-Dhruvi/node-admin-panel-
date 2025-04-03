@@ -6,25 +6,6 @@ const addBlogPage = (req, res) => {
   res.render("add-blog");
 };
 
-// const viewAllBlogPage = async (req, res) => {
-//   try {
-//     let { category, search } = req.query;
-//     let blogs;
-
-//     if (req.query.category) {
-//       blogs = await Blog.find({ category:category });
-//     } else if (req.query.search) {
-//       blogs = await Blog.find({ title: search }); 
-//     } else {
-//       blogs = await Blog.find({});
-//     }
-//     res.render("view-blogs", { blogs });
-//   } catch (error) {
-//     console.error("Error fetching blogs:", error);
-//     res.status(500).send("Error fetching blogs");
-//   }
-// };
-
 const viewAllBlogPage = async (req, res) => {
   try {
     let { category, search, page } = req.query;
